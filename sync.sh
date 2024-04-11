@@ -14,10 +14,12 @@ rm -rf tmp
 # Extra changes that are special for this repo
 
 ## Update 0.0.0 in package.json to match the version of the wing repo
-sed -i '' "s/0.0.0/$WING_VERSION/g" package.json
+jq ".version = \"$WING_VERSION\"" package.json > new.package.json
 
 ## Remove "volta" section from package.json
-sed -i '' '/"volta": {/,/}/d' package.json
+jq 'del(.volta)' new.package.json > package.json
+
+rm -f new.package.json
 
 ## Add replace .gitignore
 echo "node_modules" > .gitignore
