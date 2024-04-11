@@ -1,5 +1,5 @@
 on:
-  # Daily at 4:00 PM EST
+  workflow_dispatch:
   schedule:
     - cron: '0 20 * * *'
 
