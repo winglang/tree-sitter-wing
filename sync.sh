@@ -7,7 +7,8 @@ git clone --depth 1 https://github.com/winglang/wing.git tmp
 pushd tmp
 WING_VERSION=$(git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//')
 popd
-cp -rf tmp/libs/tree-sitter-wing/ ./
+# Copy files from tmp/libs/tree-sitter-wing to current dir
+rsync -av --progress tmp/libs/tree-sitter-wing/ .
 rm -rf tmp
 
 
