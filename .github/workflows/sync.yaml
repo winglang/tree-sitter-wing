@@ -1,9 +1,9 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 20 * * *'
+    - cron: "0 20 * * *"
 
-permissions: 
+permissions:
   contents: write
   pull-requests: write
 
@@ -12,13 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - uses: pnpm/action-setup@v3
+        with:
+          version: 8.15.6
       - uses: moonrepo/setup-rust@v1
+        with:
+          channel: "1.77.2"
       - run: ./sync.sh
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           branch: sync
-
-
