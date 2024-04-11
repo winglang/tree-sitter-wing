@@ -1,0 +1,43 @@
+================================================================================
+Nested identifier
+================================================================================
+
+test1.test2.test3;
+
+--------------------------------------------------------------------------------
+
+(source
+  (expression_statement
+    (reference
+      (nested_identifier
+        object: (reference
+          (nested_identifier
+            object: (reference
+              (reference_identifier))
+            accessor_type: (accessor)
+            property: (member_identifier)))
+        accessor_type: (accessor)
+        property: (member_identifier)))))
+
+================================================================================
+Nested identifier method call
+================================================================================
+
+test1.test2.test3();
+
+--------------------------------------------------------------------------------
+
+(source
+  (expression_statement
+    (call
+      caller: (reference
+        (nested_identifier
+          object: (reference
+            (nested_identifier
+              object: (reference
+                (reference_identifier))
+              accessor_type: (accessor)
+              property: (member_identifier)))
+          accessor_type: (accessor)
+          property: (member_identifier)))
+      args: (argument_list))))

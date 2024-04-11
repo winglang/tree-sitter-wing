@@ -1,0 +1,37 @@
+{
+  "name": "@winglang/tree-sitter-wing",
+  "version": "0.69.1",
+  "description": "winglang grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "parsing",
+    "incremental"
+  ],
+  "tree-sitter": [
+    {
+      "scope": "source.wing",
+      "file-types": [
+        "w"
+      ]
+    }
+  ],
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "scripts": {
+    "test": "tree-sitter test",
+    "parse": "tree-sitter parse",
+    "test:update": "tree-sitter test --update",
+    "test:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo test\"",
+    "build:generate": "tree-sitter generate",
+    "build:wasm": "tree-sitter build-wasm --docker",
+    "build:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo compile\"",
+    "playground": "tree-sitter playground",
+    "playground:quiet": "tree-sitter playground -q",
+    "playground:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo playground:quiet\""
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "tree-sitter-cli": "0.20.6"
+  }
+}
