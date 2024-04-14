@@ -1481,16 +1481,6 @@
     "type": "interface_definition",
     "named": true,
     "fields": {
-      "access_modifier": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "access_modifier",
-            "named": true
-          }
-        ]
-      },
       "extends": {
         "multiple": true,
         "required": false,
@@ -1511,6 +1501,16 @@
         "types": [
           {
             "type": "interface_implementation",
+            "named": true
+          }
+        ]
+      },
+      "modifiers": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interface_modifiers",
             "named": true
           }
         ]
@@ -1545,6 +1545,25 @@
         },
         {
           "type": "method_signature",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_modifiers",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "access_modifier",
+          "named": true
+        },
+        {
+          "type": "inflight_specifier",
           "named": true
         }
       ]
