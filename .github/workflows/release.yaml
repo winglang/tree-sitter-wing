@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: prepare
+        run: |
+          # get version from package.json
+          echo "version=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ steps.prepare.outputs.version }}"
+          generate_release_notes: true
+          files: |
+            src/**
+            queries/**
+          token: ${{ secrets.GITHUB_TOKEN }}
