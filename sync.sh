@@ -2,33 +2,40 @@
 # Clone https://github.com/winglang/wing, but only libs/tree-sitter-wing
 # and copy the files to the current repository.
 
+# Clean everything except sync.sh
+ls | grep -xv "sync.sh" | xargs rm -rf
+rm -f .gitignore
+
 rm -rf tmp
-git clone --depth 1 https://github.com/winglang/wing.git tmp
+git clone https://github.com/winglang/wing.git tmp
 pushd tmp
 WING_VERSION=$(git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//')
+git checkout "v$WING_VERSION"
 popd
 # Copy files from tmp/libs/tree-sitter-wing to current dir
 rsync -av --progress tmp/libs/tree-sitter-wing/ .
 rm -rf tmp
 
+echo "Retrieved wing version: $WING_VERSION"
 
 # Extra changes that are special for this repo
 
-## Update 0.0.0 in package.json to match the version of the wing repo
-jq ".version = \"$WING_VERSION\"" package.json > new.package.json
-
 ## Remove "volta" section from package.json
-jq 'del(.volta)' new.package.json > package.json
-
-rm -f new.package.json
+jq 'del(.volta)' package.json > new.package.json
+mv -f new.package.json package.json
 
 ## Add replace .gitignore
-echo "node_modules" > .gitignore
-echo "build" >> .gitignore
+echo "node_modules
+build
+target" > .gitignore
 
-## Remove unnecessary files
+# Update other versions
+perl -pi -e s,0.0.0,$WING_VERSION,g Cargo.toml pyproject.toml Makefile package.json
+
+## Remove extra files
 rm -f turbo.json .gitattributes tree-sitter-dsl.d.ts jsconfig.json
 
 pnpm install
-pnpm build:generate
-pnpm test:update
+pnpm install # second time to make sure nodegyp runs
+pnpm tree-sitter generate
+pnpm test
