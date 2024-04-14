@@ -5,17 +5,20 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  nan:
-    specifier: ^2.17.0
-    version: 2.19.0
+  node-addon-api:
+    specifier: ^7.1.0
+    version: 7.1.0
+  tree-sitter:
+    specifier: ^0.21.0
+    version: 0.21.1
 
 devDependencies:
   nodemon:
-    specifier: ^3.0.1
+    specifier: ^3.1.0
     version: 3.1.0
   tree-sitter-cli:
-    specifier: 0.20.6
-    version: 0.20.6
+    specifier: 0.22.4
+    version: 0.22.4
 
 packages:
 
@@ -158,8 +161,19 @@ packages:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
 
-  /nan@2.19.0:
-    resolution: {integrity: sha512-nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==}
+  /node-addon-api@7.1.0:
+    resolution: {integrity: sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==}
+    engines: {node: ^16 || ^18 || >= 20}
+    dev: false
+
+  /node-addon-api@8.0.0:
+    resolution: {integrity: sha512-ipO7rsHEBqa9STO5C5T10fj732ml+5kLN1cAG8/jdHd56ldQeGj3Q7+scUS+VHK/qy1zLEwC4wMK5+yM0btPvw==}
+    engines: {node: ^18 || ^20 || >= 21}
+    dev: false
+
+  /node-gyp-build@4.8.0:
+    resolution: {integrity: sha512-u6fs2AEUljNho3EYTJNBfImO5QTo/J/1Etd+NVdCj7qWKUSN/bSLkZwhDv7I+w/MSC6qJ4cknepkAYykDdK8og==}
+    hasBin: true
     dev: false
 
   /nodemon@3.1.0:
@@ -243,11 +257,19 @@ packages:
       nopt: 1.0.10
     dev: true
 
-  /tree-sitter-cli@0.20.6:
-    resolution: {integrity: sha512-tjbAeuGSMhco/EnsThjWkQbDIYMDmdkWsTPsa/NJAW7bjaki9P7oM9TkLxfdlnm4LXd1wR5wVSM2/RTLtZbm6A==}
+  /tree-sitter-cli@0.22.4:
+    resolution: {integrity: sha512-Zli7yeD+ocVWm+au5YLJKLyxzvUirenomOgwapNZU8bpYt/CZMpEeya9eK/tEQAd7NDOQSvAnvhJXbPbwUdgMQ==}
     hasBin: true
     requiresBuild: true
     dev: true
+
+  /tree-sitter@0.21.1:
+    resolution: {integrity: sha512-7dxoA6kYvtgWw80265MyqJlkRl4yawIjO7S5MigytjELkX43fV2WsAXzsNfO7sBpPPCF5Gp0+XzHk0DwLCq3xQ==}
+    requiresBuild: true
+    dependencies:
+      node-addon-api: 8.0.0
+      node-gyp-build: 4.8.0
+    dev: false
 
   /undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}

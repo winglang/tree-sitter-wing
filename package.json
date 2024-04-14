@@ -1,37 +1,58 @@
 {
   "name": "@winglang/tree-sitter-wing",
-  "version": "0.70.6",
+  "version": "0.70.8",
   "description": "winglang grammar for tree-sitter",
   "main": "bindings/node",
+  "types": "bindings/node",
   "keywords": [
     "parsing",
     "incremental"
   ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/**",
+    "src/**"
+  ],
   "tree-sitter": [
     {
       "scope": "source.wing",
+      "highlights": "queries/highlights.scm",
       "file-types": [
         "w"
       ]
     }
   ],
   "dependencies": {
-    "nan": "^2.17.0"
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "scripts": {
-    "test": "tree-sitter test",
+    "test": "tree-sitter test --update",
     "parse": "tree-sitter parse",
-    "test:update": "tree-sitter test --update",
     "test:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo test\"",
-    "build:generate": "tree-sitter generate",
+    "build:generate": "tree-sitter generate --no-bindings",
     "build:wasm": "tree-sitter build-wasm --docker",
     "build:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo compile\"",
     "playground": "tree-sitter playground",
     "playground:quiet": "tree-sitter playground -q",
-    "playground:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo playground:quiet\""
+    "playground:watch": "nodemon --watch grammar.js --watch src/scanner.c --exec \"turbo playground:quiet\"",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1",
-    "tree-sitter-cli": "0.20.6"
+    "nodemon": "^3.1.0",
+    "tree-sitter-cli": "0.22.4",
+    "prebuildify": "^6.0.0"
   }
 }
