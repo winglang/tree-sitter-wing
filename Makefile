@@ -1,4 +1,4 @@
-VERSION := 0.70.8
+VERSION := 0.70.11
 
 LANGUAGE_NAME := tree-sitter-wing
 
