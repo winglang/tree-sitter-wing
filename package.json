@@ -1,6 +1,6 @@
 {
   "name": "@winglang/tree-sitter-wing",
-  "version": "0.71.0",
+  "version": "0.83.11",
   "description": "winglang grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
@@ -51,7 +51,7 @@
     "prebuildify": "prebuildify --napi --strip"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.4",
     "tree-sitter-cli": "0.22.5",
     "prebuildify": "^6.0.0"
   }

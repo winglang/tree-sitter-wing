@@ -225,7 +225,7 @@ inflight (): num => { return 1; };
   (expression_statement
     (closure
       modifiers: (closure_modifiers
-        (inflight_specifier))
+        (phase_specifier))
       parameter_list: (parameter_list)
       type: (builtin_type)
       block: (block
@@ -244,7 +244,7 @@ inflight () => { return 1; };
   (expression_statement
     (closure
       modifiers: (closure_modifiers
-        (inflight_specifier))
+        (phase_specifier))
       parameter_list: (parameter_list)
       block: (block
         (return_statement
@@ -262,7 +262,7 @@ inflight (arg1) => { log(arg1); };
   (expression_statement
     (closure
       modifiers: (closure_modifiers
-        (inflight_specifier))
+        (phase_specifier))
       parameter_list: (parameter_list
         (parameter_definition
           name: (identifier)))
@@ -304,12 +304,12 @@ maybeVal ?? "hi" ?? 2;
 
 (source
   (expression_statement
-    (unwrap_or
+    (binary_expression
       (reference
         (reference_identifier))
       (number)))
   (expression_statement
-    (unwrap_or
+    (binary_expression
       (reference
         (reference_identifier))
       (binary_expression
@@ -317,16 +317,16 @@ maybeVal ?? "hi" ?? 2;
         (number))))
   (expression_statement
     (binary_expression
-      (unwrap_or
+      (binary_expression
         (reference
           (reference_identifier))
         (number))
       (number)))
   (expression_statement
-    (unwrap_or
+    (binary_expression
       (reference
         (reference_identifier))
-      (unwrap_or
+      (binary_expression
         (string)
         (number)))))
 
@@ -489,46 +489,6 @@ let a = A { f1: 3, f2: true };
         (bool)))))
 
 ================================================================================
-Optional test (and precedence)
-================================================================================
-a?;
-!a?;
-(!a)?;
-(a.b.c)?;
-
---------------------------------------------------------------------------------
-
-(source
-  (expression_statement
-    (optional_test
-      (reference
-        (reference_identifier))))
-  (expression_statement
-    (unary_expression
-      arg: (optional_test
-        (reference
-          (reference_identifier)))))
-  (expression_statement
-    (optional_test
-      (parenthesized_expression
-        (unary_expression
-          arg: (reference
-            (reference_identifier))))))
-  (expression_statement
-    (optional_test
-      (parenthesized_expression
-        (reference
-          (nested_identifier
-            object: (reference
-              (nested_identifier
-                object: (reference
-                  (reference_identifier))
-                accessor_type: (accessor)
-                property: (member_identifier)))
-            accessor_type: (accessor)
-            property: (member_identifier)))))))
-
-================================================================================
 Nil
 ================================================================================
 
@@ -539,18 +499,6 @@ nil;
 (source
   (expression_statement
     (nil_value)))
-
-================================================================================
-Debug panic
-================================================================================
-
-😱;
-
---------------------------------------------------------------------------------
-
-(source
-  (expression_statement
-    (compiler_dbg_panic)))
 
 ================================================================================
 Duration
@@ -596,3 +544,69 @@ let mo = 10mo;
     value: (duration
       (months
         value: (number)))))
+
+================================================================================
+Array access
+================================================================================
+
+log(x[y]);
+x[y] += 3;
+assert(x[y] == w[z]);
+
+--------------------------------------------------------------------------------
+
+(source
+  (expression_statement
+    (call
+      (reference
+        (reference_identifier))
+      (argument_list
+        (positional_argument
+          (reference
+            (structured_access_expression
+              (reference
+                (reference_identifier))
+              (reference
+                (reference_identifier))))))))
+  (variable_assignment_statement
+    (lvalue
+      (structured_access_expression
+        (reference
+          (reference_identifier))
+        (reference
+          (reference_identifier))))
+    (assignment_operator)
+    (number))
+  (expression_statement
+    (call
+      (reference
+        (reference_identifier))
+      (argument_list
+        (positional_argument
+          (binary_expression
+            (reference
+              (structured_access_expression
+                (reference
+                  (reference_identifier))
+                (reference
+                  (reference_identifier))))
+            (reference
+              (structured_access_expression
+                (reference
+                  (reference_identifier))
+                (reference
+                  (reference_identifier))))))))))
+
+================================================================================
+Intrinsic
+================================================================================
+
+@hi();
+
+--------------------------------------------------------------------------------
+
+(source
+  (expression_statement
+    (intrinsic
+      (intrinsic_identifier)
+      (argument_list))))
