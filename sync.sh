@@ -1,17 +1,22 @@
 #!/bin/bash
+set -euxo pipefail
+
 # Clone https://github.com/winglang/wing, but only libs/tree-sitter-wing
 # and copy the files to the current repository.
 
 # Clean everything except sync.sh
-ls | grep -xv "sync.sh" | xargs rm -rf
+ls | grep -xv "sync.sh" | xargs rm -rf || true
 rm -f .gitignore
 
 rm -rf tmp
 git clone https://github.com/winglang/wing.git tmp
+
+# Get the latest published version, so we aren't trying to sync with a broken build
 pushd tmp
 WING_VERSION=$(git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//')
 git checkout "v$WING_VERSION"
 popd
+
 # Copy files from tmp/packages/@winglang/tree-sitter-wing to current dir
 rsync -av --progress tmp/packages/@winglang/tree-sitter-wing/ .
 rm -rf tmp
