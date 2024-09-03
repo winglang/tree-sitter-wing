@@ -12,8 +12,8 @@ pushd tmp
 WING_VERSION=$(git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//')
 git checkout "v$WING_VERSION"
 popd
-# Copy files from tmp/libs/tree-sitter-wing to current dir
-rsync -av --progress tmp/libs/tree-sitter-wing/ .
+# Copy files from tmp/packages/@winglang/tree-sitter-wing to current dir
+rsync -av --progress tmp/packages/@winglang/tree-sitter-wing/ .
 rm -rf tmp
 
 echo "Retrieved wing version: $WING_VERSION"
