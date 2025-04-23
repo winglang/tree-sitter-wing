@@ -94,6 +94,10 @@
         "named": true
       },
       {
+        "type": "type_intrinsic",
+        "named": true
+      },
+      {
         "type": "unary_expression",
         "named": true
       }
@@ -697,7 +701,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -2891,6 +2895,54 @@
     }
   },
   {
+    "type": "type_intrinsic",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "builtin_type",
+            "named": true
+          },
+          {
+            "type": "custom_type",
+            "named": true
+          },
+          {
+            "type": "function_type",
+            "named": true
+          },
+          {
+            "type": "immutable_container_type",
+            "named": true
+          },
+          {
+            "type": "json_container_type",
+            "named": true
+          },
+          {
+            "type": "mutable_container_type",
+            "named": true
+          },
+          {
+            "type": "optional",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {
@@ -3229,6 +3281,10 @@
     "named": false
   },
   {
+    "type": "@type",
+    "named": false
+  },
+  {
     "type": "AUTOMATIC_BLOCK",
     "named": true
   },
@@ -3306,6 +3362,10 @@
   },
   {
     "type": "bring",
+    "named": false
+  },
+  {
+    "type": "bytes",
     "named": false
   },
   {
